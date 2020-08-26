@@ -1,0 +1,500 @@
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb,amsfonts,mathabx,setspace}
+\usepackage{graphicx,caption,subcaption}
+\usepackage{bbm}
+\usepackage{mathrsfs}
+\usepackage{bm}
+\usepackage{mathtools}
+
+
+\usepackage[sort,compress]{cite}
+\usepackage[bookmarks=true,         bookmarksnumbered=true,
+colorlinks=true,
+pdfstartview=FitV,
+linkcolor=blue, citecolor=blue, urlcolor=blue,
+]{hyperref}
+
+ \topmargin -1.8cm
+ \oddsidemargin -0.06cm
+ \evensidemargin -0.06cm
+ \textwidth 16.59cm
+ \textheight 24.00cm
+
+\newcommand{\res}[1]{{{\underline{\bf Response}: #1}} }
+\newcommand{\rev}[1]{{\color{blue}{{\small #1}}}}
+\newcommand{\revision}[1]{{\color{purple}{{#1}}}}
+\newcommand{\mathbbprob}[1]{\mathbb{P}\left\{{#1}\right\}}
+
+\DeclareMathOperator{\Tr}{Tr}
+
+\newcommand{\rhoT}{\rho_T}
+\newcommand{\rhoL}{\rho_T^L}
+\newcommand{\rhoLM}{\rho_T^{L,M}}
+\newcommand{\brhoL}{\bm{\rho}_T^L}
+\newcommand{\brhoT}{\bm{\rho}_T}
+\newcommand{\brho}{\bm{\rho}}
+\newcommand{\wbar}\widebar
+
+% customized commands
+
+\newcommand{\mres}{\mathbin{\vrule height 1.2ex depth 0pt width
+0.13ex\vrule height 0.13ex depth 0pt width 0.9ex}}
+
+\newcommand{\mbf}[1]{\boldsymbol{#1}}
+\newcommand{\lil}[1]{\ell_{#1}}
+\newcommand{\innerp}[2]{\langle #1,#2 \rangle}
+\newcommand{\inp}[1]{\langle{#1}\rangle}
+\newcommand{\dbinnerp}[1]{\langle\hspace{-1mm}\langle{#1}\rangle\hspace{-1mm}\rangle}
+\newcommand{\abs}[1]{\big| #1 \big|}
+\newcommand{\dquo}[1]{``#1"}
+\newcommand{\bxm}{\bx^{(m)}}
+\newcommand{\dotbxm}{\dot\bx^{(m)}}
+\newcommand{\bXm}{\bX^{(m)}}
+\newcommand{\dotbXm}{\dot\bX^{(m)}}
+\newcommand{\Xtrain}{\bX_{\mathrm{traj},M,\mu_0}}
+\newcommand{\brm}{\mbf{r}^{(m)}}
+\newcommand{\nbrm}{r^{(m)}}
+
+% define norms
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\Tnorm}[1]{\left\| #1 \right\|_{\mathcal{T}}}
+\newcommand{\tnorm}[1]{\left\| #1 \right\|_{\mathcal{T}_t}}
+\newcommand{\HDnorm}[1]{d_{\text{HD}}{(#1)}}
+\newcommand{\ltworho}[1]{\norm{#1}_{L^2(\rho_T)}}
+% define some spaces in real
+\newcommand{\realR}[1]{\mathbb{R}^{#1}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\compC}[1]{\mathbb{C}^{#1}}
+\newcommand{\comp}{\mathbb{C}}
+\newcommand{\integ}{\mathbb{Z}}
+% for some special variables
+% the vector varaibles
+\newcommand{\br}{\mbf{r}}
+\newcommand{\bd}{\mbf{d}}
+\newcommand{\bu}{\mbf{u}}
+\newcommand{\bv}{\mbf{v}}
+\newcommand{\bw}{\mbf{w}}
+\newcommand{\bx}{\mbf{x}}
+\newcommand{\bX}{\mbf{X}}
+\newcommand{\bB}{\mbf{B}}
+
+
+\newcommand{\bY}{\mbf{Y}} % new
+\newcommand{\by}{\mbf{y}}
+\newcommand{\bz}{\mbf{z}}
+\newcommand{\balpha}{\mbf{\alpha}}
+%
+\newcommand{\mA}{\mathcal{A}}
+\newcommand{\mC}{\mathcal{C}}
+\newcommand{\mE}{\mathcal{E}}
+\newcommand{\bmE}{\mbf{\mathcal{E}}}
+\newcommand{\mF}{\mathcal{F}}
+\newcommand{\mG}{\mathcal{G}}
+\newcommand{\mL}{\mathcal{L}}
+\newcommand{\mH}{\mathcal{H}}
+
+\newcommand{\mI}{\mathcal{I}}
+\newcommand{\mK}{\mathcal{K}}
+\newcommand{\mR}{\mathcal{R}}
+\newcommand{\mS}{\mathcal{S}}
+\newcommand{\mT}{\mathcal{T}}
+\newcommand{\mX}{\mathcal{X}}
+\newcommand{\mY}{\mathcal{Y}}
+%
+\newcommand{\bigO}{\mathcal{O}}
+%
+\newcommand{\R}{\real}
+\newcommand{\dimamb}{D}
+\renewcommand{\dim}{d}
+\newcommand{\numcl}{K}
+\newcommand{\idxcl}{k}
+\newcommand{\spaceM}{S}
+\newcommand{\cl}{C}
+\newcommand{\clof}{\mathpzc{k}}
+\newcommand{\adj}{\mathcal{A}}
+\newcommand{\eadj}{\adj^E}
+\newcommand{\aadj}{\adj^A}
+\newcommand{\xiadj}{\adj^{\xi}}
+% the coupling strength terms
+\newcommand{\cst}{\mathcal{\kappa}}
+\newcommand{\vcst}{\cst^{\bv}}
+\newcommand{\xicst}{\cst^{\xi}}
+\newcommand{\bcst}{\bm{\cst}}
+\newcommand{\bvcst}{\bm{\cst}^{\bv}}
+\newcommand{\bxicst}{\bm{\cst}^{\xi}}
+\newcommand{\bL}{\mbf{L}}
+\newcommand{\bZ}{\mbf{Z}}
+
+
+
+%
+
+\newcommand{\Tmixing}{T_{\mathrm{mix}}}
+\newcommand{\alignterm}{\Delta}
+\newcommand{\force}{F}
+\newcommand{\forcev}{\force^{\bv}}
+\newcommand{\forcexi}{\force^{\xi}}
+\newcommand{\intkernel}{\phi}
+\newcommand{\lintkernel}{\widehat{\intkernel}}
+\newcommand{\bintkernel}{{\bm{\phi}}}
+\newcommand{\blintkernel}{{\widehat{\bm{\phi}}}}
+\newcommand{\intkernelvar}{\varphi}
+\newcommand{\bintkernelvar}{{\bm{\varphi}}}
+\newcommand{\bintkerneltrue}{{\bm{\phi}}_{true}}
+\newcommand{\intkernele}{\intkernel^E}
+\newcommand{\intkernela}{\intkernel^A}
+\newcommand{\intkernelxi}{\intkernel^{\xi}}
+\newcommand{\bintkernelv}{{\bm{\intkernel}}}
+\newcommand{\bintkernelxi}{{\bm{\intkernel}^{\mathrm{a}}}}
+\newcommand{\rhsfo}{\mathbf{f}}
+\newcommand{\hypspace}{\mathcal{H}}
+\newcommand{\bhypspace}{\mbf{\mathcal{H}}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\state}{\mathbf{X}}
+\newcommand{\traj}{\state_{[0,T]}}
+\newcommand{\probIC}{\mu_0}
+\newcommand{\intkerneltrue}{\phi_{true}}%{\intkernelvar^{true}}
+% special names
+\newcommand{\ml}{\text{MATLAB}^{\texttrademark}}
+\newcommand{\apr}{\textit{ a priori }}
+% define special functions
+\newcommand{\smin}[1]{\text{min}(#1)}
+\newcommand{\smax}[1]{\text{max}(#1)}
+\newcommand{\smid}[1]{\text{mid}(#1)}
+\newcommand{\vmin}[1]{\textbf{min}(#1)}
+\newcommand{\vmax}[1]{\textbf{max}(#1)}
+\newcommand{\vmid}[1]{\textbf{mid}(#1)}
+\newcommand{\grad}[1]{\nabla #1}
+% for some special vectors
+\newcommand{\zero}{\mbf{0}}
+\newcommand{\one}{\mbf{1}}
+% define transpose, Hermitian transpose and inverse of a matrix
+\newcommand{\trans}[1]{#1^{\top}}
+\newcommand{\ptrans}[1]{(#1)^{\top}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\pinverse}[1]{(#1)^{-1}}
+% define argmin and argmax
+\newcommand{\argmin}[1]{\underset{#1}{\operatorname{arg}\operatorname{min}}\;}
+\newcommand{\arginf}[1]{\underset{#1}{\operatorname{arg}\operatorname{inf}}\;}
+\newcommand{\argmax}[1]{\underset{#1}{\operatorname{arg}\operatorname{max}}\;}
+% define the support of a vector
+\newcommand{\supp}[1]{\text{supp}(#1)}
+% define "and" in math mode
+\newcommand{\mand}{\quad \text{and} \quad}
+\newcommand{\mwith}{\quad \text{with} \quad}
+% define the domain of a function
+\newcommand{\domain}[1]{\text{dom}(#1)}
+
+% MM comments
+\newcommand{\MM}[1]{\textcolor{orange}{{#1}}}
+\newcommand{\TOGO}[1]{\textcolor{gray}{{#1}}}
+\newcommand{\FL}[1]{\textcolor{blue}{{#1}}}
+\newcommand{\ST}[1]{\textcolor{purple}{{#1}}}
+%\newcommand{\MZ}[1]{\textcolor{purple}{{#1}}}
+\usepackage{soul}
+\usepackage{xcolor}
+
+%
+\newcommand{\bigp}[1]{\left({#1}\right)} %new
+\newcommand{\wlim}{\text{w}-\lim}
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}    
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%\captionsetup[figure]{position=bottom,justification=centering,width=.85\textwidth,labelfont=bf,font=small}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+
+\DeclareMathOperator*{\esssup}{ess\,sup}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+%% -----------------------------------------------------------\\
+\begin{center}
+{\Large Response to the Reviewers' Comments}\\
+\vspace{4mm}
+SPA MS\# 2020-94 \\
+``On the identifiability of interaction functions  in systems of interacting particles'' \\
+ \vspace{2mm}
+  Zhongyang Li, Fei Lu, Mauro Maggioni, Sui Tang and Cheng Zhang
+  \end{center}
+
+% \FL{To Sui: I suggest that (i) we highlight the changes in paper by a colored text, as we did for PNAS; (ii) In the responses, we point out where the changes are in the paper, and attach the changes; (iii) Address every question. }
+
+\noindent Dear Professor M\'el\'eard,
+
+ \vspace{2mm}
+ 
+We thank you and the reviewers for the valuable feedback. Following the reviewer's comments, we have rewritten the manuscript thoroughly, focusing on the main results and polishing the representation. Overall, we believe that the revised version addresses all the concerns of the reviewers and substantially improves the paper.
+
+Before going into detailed point-by-point responses, we would like to summarize major changes that address major comments by the reviewers. 
+\begin{itemize}
+\item To address Reviewer 1's comments about confusing presentation and vague problem settings, we re-organize the manuscript, focus only on two main settings (the linear systems with generic initial laws and nonlinear systems with three particles and with a given class of interaction functions starting from an invariant law), and state the main results in Theorem 1.3 in the introduction. We then expand the rest of the sections to prove the main results in the theorem. We also apply similar organization to each section. Thus, the revised version dramatically improves the clarity and readability of the paper.   
+\item Following Reviewer 2's suggestions, we state the role of the initial law in the problem setting, and discuss the limitations of the current results and future directions of research.   \vspace{-2mm}
+\end{itemize}
+We appreciate the reviewers comments that leading to these changes that substantially improve the paper. 
+\vskip0.2cm
+
+Please find below our detailed responses to each of the reviewers' comments, where we list the reviewers' comments in blue color. In each response, we either point to changes in the manuscript or attach the changed texts (in purple color) for the convenience of the reviewers.   
+In the revised manuscript, we have highlighted the main changes in purple for everyone's convenience. 
+\newpage
+
+\noindent{\bf Response to Reviewer 1} \\
+
+\rev{Interacting particle systems naturally arise in various fields of science. It is often of interest to infer the interaction potential function. For such inference problem to be well- posed, it needs to be identifiable, which can be guaranteed by coercivity conditions. This manuscript (MS) defines coercivity conditions in several scenarios, and show that linear systems are coercive, and three particle systems are coercive if the interaction potential is polynomial-like. While these partial answers have some merits by themselves, I think the current version of MS is not suitable for publication in SPA. In below, I list some major issues that the authors can consider improving.}\\
+
+\res{
+ We appreciate the reviewer's criticism and comments, as they were all extremely valuable in revising the manuscript. We have rewritten the MS thoroughly to address the issues pointed out by the reviewer. In particular, we re-organize the MS by introducing the main results as a theorem in the introduction, with definitions for the identifiability and the coercivity condition, and the rest of the MS focus on the cases presented in the theorem.  This improves the clarity of the MS, avoids the vague discussions in the previous version. As a result, the MS is significantly improved. 
+  }
+\\
+
+\rev{\underline{Major Comments}}
+
+\vspace{2mm}
+\rev{ \textbf{Math Rigor}}
+\begin{enumerate}
+        \item  \rev{
+The writing style in this MS seems not very  ``mathematical" or rigorous. Usually in math journals such as SPA, rigorous proofs need to be done carefully for theorems and other claims. This is not well done in this MS, as many arguments are conveyed through ``semi-proofs".
+For example, l-70 says ``In the proving the consistency of the estimator,...." So is this part of a proof, or is it referring to an existing proof? } \\
+        \res{Following the reviewer's comments (and the suggestion on paper-organization below), we have re-written the MS and re-organized the presentation throughout the paper. By introducing definitions and main theorem in the introduction, we make the revised MS focus on only the cases in the main theorem. We drop our previous attempts to have partial results for general interaction functions that are numerically identified in our earlier papers, so as to avoid non-rigorous discussions or claims. This dramatically improves the clarity and mathematical rigor of the MS. \\             
+        As for the example above, it was not meant to be a proof, and it was referring to the existing procedure for proving consistency in our previous research. In the revised version, we have removed irrelevant discussions, and presented the relevant parts as a proposition which shows that the coercivity condition is sufficient for the identifiability (see Proposition 2.1). }
+
+        \item \rev{For another example, after (2.8) on page 5, it says '' note that ...
+          $$\langle \widebar Q_Th, g  \rangle=\frac{1}{T}\int_0^T \E[h(r_{12}, r_{13})]\frac{\langle r_{12}, r_{13}\rangle}{|r_{12}||r_{13}|}dt].$$ $\widebar Q_T$ is defined through $K_T$ in (2.7), which is a very long formula. How does the identity in above hold? I cannot see why this is true without some detail explanation.}
+          
+                  \res{  We have included a detailed explanation. For the reviewer's convenience, we include it here: we define
+                  \begin{align*} 
+\widebar{K}_T(r,s): &= \frac{1}{\widebar{\rho}_T(r) \widebar{\rho}_T(s)} (rs)^{d-1}\frac{1}{T}\int_{0}^T\int_{S^{d-1}}\int_{S^{d-1}}\innerp{\xi}{\eta} p_t(r\xi,s\eta) d\xi d\eta dt 
+\end{align*}
+\begin{align*}
+[\widebar Q_T h] (r): = \int \widebar{K}_T(r,s) h(s) \widebar \rho_T(s)ds. 
+\end{align*}
+Then,  for any $h,g \in L^2(\wbar \rho_T)$, by a change of variable to the polar coordinates to get the second equality, we have
+\begin{align*}
+&\frac{1}{T}\int_{0}^T  \E[h(|\br_{12}^t|)g(|\br_{13}^t|)\frac{\innerp{\br_{12}^t}{\br_{13}^t}}{|\br_{12}^t||\br_{13}^t|} ]dt
+= \frac{1}{T}\int_{0}^T \int_{\R^d}\int_{\R^d} h(u)g(v) \frac{\innerp{u}{v}}{|u||v|} p_t(u,v)dudv dt\\
+ =& \frac{1}{T}\int_{0}^T \int_{\R^+} \int_{\R^+}   \int_{S^{d-1}}\int_{S^{d-1}} h(r)g(s) p(r\xi, s\eta) \innerp{\xi}{\eta}(rs)^{d-1}   d\xi d\eta drds dt\\
+ = & \int_{\R^+} \int_{\R^+} \widebar{K}_T(r,s) h(r) g(s)dr ds = \langle \wbar Q_T h, g\rangle. 
+\end{align*}
+  }
+
+
+\item \rev{As a last example, on page 11 there are 3 different  ``proofs". But I don't know what theorem or lemma are they referring to. Problems such as these three appear in every page. The authors should consider making their statements and arguments rigorous and provide details.
+On the other hand, these semi-proofs are quite tolerable and common in physics, nonlinear science or engineering literatures. The authors may want to consider submitting the MS to a different venue.}
+        
+  \res{ It was a bad presentation: ``Proof of (i)'' refers to Item (i) in the line above it, and similarly ``Proof of (i)'' refers to Item (ii) there. They were meant to be parts of the proof for the proposition and we made them in bold font to highlight the different parts. To avoid such a confusion, we have used list to present (i) and (ii), and we replaced the bold font ``Proof of (i)'' by ``To prove (i)". While we appreciate the reviewer's critique about the presentation, we believe that these proofs are rigorous.  }
+
+      
+        
+\end{enumerate}
+
+ \rev{\textbf{Identifiability} }
+\begin{enumerate}
+
+\item \rev{ The title suggests this MS studies the identifiability of interaction functions. But identifiability is only discussed in Section 2.1 by some vague ``proofs". In my opinion, identifiability is much more interesting than coerciveness. Is identifiability carefully proved in existing works like [11]? If yes, the associated theorems should be presented in the appendix. Otherwise, the authors should consider presenting the claim as a theorem. This result will be more significant than the other partial results. } \\
+\res{We appreciate the reviewer's comments which helped us to clarify the concepts of identifiably and coercivity condition. As pointed out above, in the previous version, Section 2.1 aimed for a formulation of the concept of identifiability in terms of coercivity conditions, and we did not intend to make proofs there. To address the reviewers comments, we introduce a definition for the identifiability in Definition 1.1, so as to avoid ambiguity about it (we say that an interaction function is identifiable if it is the unique maximizer fo the expectation of the likelihood ratio of the process). We also moved the definition of coercivity condition to the introduction, and presented the main theorem there. In Section 2.1, we presented Proposition 2.1 which shows that the coercivity condition is sufficient for the identifiability, and it becomes necessary when $N=\infty$. Everything now is presented in a rigorous manner and we avoid vague discussions.  } 
+\rev{
+\item The authors should also indicate/prove consequence of identifiability. That is, if the problem is identifiable, with what algorithm/method the true potential can be recovered. 
+}\\
+\res{Yes. In our earlier papers, we have discussed in full about the algorithmic implications of the coercivity condition, including on the choice of function space of inference and the choice of basis function for the hypothesis space. Following the reviewer's comments, we have added brief descriptions about the numerical method (which is least squares) and the implications in Section 2.1.  }
+
+\rev{
+\item The MS tries to argue coercive is important for identifiability. This again is done by some vague arguments after (2.4). The arguments need to be written more carefully.
+} \\
+\res{Yes, please see above.}
+
+\rev{
+\item It seems to me that coerciveness is only a sufficient condition. Why is (2.4) necessary to control $h$? Can't we define $E\|\nabla J_{h}(\bX)\|^2$ as a norm for $h$? And by asking this norm going to zero, it seems that $h$ also needs to go to zero? If this is true, all the discussion of coerciveness seem pointless to me. }\\
+\res{Yes, the coercivity is a sufficient condition for identifiability, but it is near optimal in the sense that it become necessary when $N=\infty$, see Proposition 2.1. \\
+About the rest questions: they are about the consistency of the estimator, a topic not directly relevant to identifiability, so we removed these discussions in the revised version. \\
+To answer these questions, let us review the inference problem. In the inference, we do not know the truth and from data, we have only  the likelihood ratio $\E\mathcal{E}_{\bX^{[0,T]}}$ assuming we have  $M=\infty$ trajectories. We can have a sequence of estimators $\widehat\phi_{\hypspace_n}$ corresponding to an increasing sequence of hypothesis spaces $\hypspace_n$. The issue is if the estimators converge to the truth (consistency).  
+
+We would like to control their error $h_n:= \widehat\phi_{\hypspace_n} - \phi_{true}$ in $L^2(\wbar \rho_T)$ by $ \E\|\nabla J_{h_n}(\bX)\|^2 = \E \mathcal{E}_{\bX}(\widehat\phi_{\hypspace_n}) -  \E\mathcal{E}_{\bX}(\phi_{true})$ for two reasons: (1) this is the only quantity we can estimate from data; (2) It will converge to zero as $\hypspace_n$ increases. To see (1-2), note that $\E \mathcal{E}_{\bX}(\widehat\phi_{\hypspace_n})$ will converge to  $\E\mathcal{E}_{\bX}(\phi_{true})$ if $\phi_{true}$ is the unique minimizer --- by identifiability, which is ensured by the coercivity condition. Thus, if (2.4) is true, the estimator will converge to the truth. Furthermore, as in our paper [12,13], we can show that the estimator converge at the minimax rate when the hypothesis space is optimally chosen adaptive to data. 
+ \\
+Hence, if the coercivity condition holds true on $\hypspace$, yes, $\sqrt{E\|\nabla J_{h}(\bX)\|^2}$ is equivalent to $\|h\|_{L^2(\wbar \rho_T)}$ on $\hypspace$. As the reviewer stated, the error $h_n$ converges to zero if $\sqrt{E\|\nabla J_{h_n}(\bX)\|^2}$ converges to zero. This implies that the estimator converges to the truth. Exactly what we wanted in the proof of consistency.  \\
+In summary, the coercivity not only ensures identifiability, but also leads to consistency (and optimal rate of convergence) of the estimator. \textcolor{red}{Although the coercivity condition formulated in this paper is sufficient condition for identifiability, there are extensive numerical evidence in the earlier works showing that it is true for various systems with different initial distributions. Not only the coercivity condition leads to the consistency and optimal convergence rate of nonparametric estimators,but also it shows the estimation errors can be dimension independent. Therefore, we feel it is worthwhile to purse analytical study on the coercivity condition. }
+} 
+\end{enumerate}
+
+
+
+ \rev{\textbf{Organization of settings/results} }
+\begin{enumerate}
+\item \rev{In most math papers, there are only 1 to 2 different problem settings. But this MS has four theorems, each has slightly different settings. (Again, many engineering papers contain several settings, so may be SPA is the wrong venue) For example, some results need Gaussian initialization, some need the covariance to follow technical assumption $cov(\bX_i) -cov(\bX_i, \bX_j ) = \lambda_0I_d$, some require the systems to be at equilibrium already. I understand the authors want to present the most general form of results, but these settings become very confusing. There is very little discussion of why they are appropriate assumptions. For example, is equilibrium a natural initialization? And if it is already natural, why do we consider other initialization? (I also believe by focusing on equilibrium state, you will only need one $Q_t$ that is time independent, instead of 3 different ones, which cause additional confusion.)
+}\\
+\res{We have made the presentation to focus on settings that can be rigorously proved, and dropped the other settings. Yes, when the process is stationary, $Q_t$ is no longer time dependent. We have made this clear in the revised version. 
+}
+\item \rev{Furthermore, the results are not organized. For example, it seems Theorem 4.12 gives stronger statements than Theorem 4.7, so why do you present the latter? Also, as an integral of $Q_t$, $\bar{Q}_t$ should be positive if $Q_t$ is. So why is $\bar{Q}_t$ first introduced and analyzed, while the proof of $Q_t$ refers to $\bar{Q}_t$?}\\
+\res{ We have revised the presentation: we remove Theorem 4.7 and we arrange Theorem 4.12 as the main theorem of the section (Theorem 4.1). Theorem 4.12 is a generalization of 4.7, and its proof is based on the proof of 4.7. \\
+We suppose the reviewer refers to $Q_t$ and $\wbar Q_T$ in Section 2. We introduced $\wbar Q_T$ first because it is related to the desired coercivity condition on $[0,T]$, and we show that its positiveness is equivalent to the coercivity. However, it is difficult to prove that $\wbar Q_t$ is positive by studying its integral kernel, which can be done for $Q_t$. Therefore, we prove the positiveness of $\wbar Q_T$ through the positiveness of $Q_t$ for each $t\in [0,T]$, a sufficient but not necessary condition. We have revised the MS to make this  clear. 
+}
+
+\item \rev{As a summary, I prefer to read 1-2 main results and focus on understanding their proofs. Currently there are too many versions, and their proofs look largely the same. This is very confusing.}\\
+\res{In the revised version, we have done so: we focus on the main results in Theorem 1.3, and present only closely relevant results. We present complete proofs for the cases in the main results first. We keep some generalizations (e.g. Section 3.3 for non-radial functions and Propostion 4.11) that are closely relevant and are likely to be useful for future studies, presenting them after the main results so that they do not cause confusion. }
+\end{enumerate}
+
+ \rev{\textbf{3 particles} }
+\begin{enumerate}
+\item \rev{I think it is fair to say that 3 particle is a quite restrictive setting. There should be explanation why extension to more particles is not doable. This is discussed in Remark 4.3. But Remark 4.3 is again very vague. What is ``marginalization''? And what do you mean by  ``except in the Gaussian case"? The authors may consider writing down the 4 particle scenario, and explain which terms prohibit the analysis.}\\
+\res{In Remark 4.4 we explained this in more details. The limitation is due to our current proof making use of the analytical expression of the invariant density $p(u,v)$ so as to apply the M\"untz type theorem. This analytical expression of $p(u,v)$, which is the density of $(\bX_1-\bX_2, \bX_1-\bX_3)$,  becomes difficult to analyze because it is the marginal density of the high-dimensional distribution of $(\bX_1-\bX_2,\bX_1-\bX_3,\ldots,\bX_1-\bX_N)$.  In an on-going work, we expect to remove this constraint using a non-radial M\"untz type theorem. }
+\end{enumerate}
+
+
+
+
+
+
+\rev{\underline{Detailed Comments}}
+
+\vspace{2mm}
+
+\rev{Here is a list of things I recommend changing. This is not an exhaustive list, since I fail to follow after page 7. Note that the line numbers are generated in a strange fashion for this MS, as multiple lines seem to be counted as one. So the line numbers in below are just indicating rough locations.}
+
+\begin{enumerate}
+ 
+ \item \rev{l24, ``An exception? to the end of paragraph: the tech details here are confusing. You haven't shown what is your model yet, so I don't understand what do you mean by  ''symmetric structure".} \\
+  \res{We have rephrased the paragraph, getting to the pairwise distance interaction function directly, so as to avoid such confusion.  }   
+  
+  \item \rev{ l29, ``, and "  there is no comma here.} \\
+     \res{Corrected. }   
+
+
+\item \rev {l31, ``we consider" seems better.} \\
+  \res{Corrected.}   
+
+
+\item \rev{ l37, identifiability is not defined here (or anywhere else)} \\
+  \res{We define it in Definition 1.1.  }   
+
+
+\item \rev{ (1.2) to the end of section 1. Usually introductions are not technical. They tend to give the background and intuition to attract further readings. Are there any physical intuition/literature related to (1.2) or (1.3)?} \\
+  \res{Thanks for the advice. We have removed (1.2) and (1.3), and we have rewritten the introduction to focus on intuition. }   
+
+
+\item  \rev{l61, the spaces in $(H_1)$ and $(H_2)$ are not defined. And why do you need finite moments up to power $Nd$ in $H_2$?}\\
+  \res{We have removed these discussions because they are no longer needed when we  focus on the ``good'' potentials in Theorem 1.3. }   
+
+
+\item \rev{ l63, what do you mean by ``the diffusion operator", and how is it related to your system?} \\
+  \res{Same as above, it is removed. We meant the second order elliptic operator in the Kolmogorov forward equation of the system.  }   
+
+
+\item \rev{ l65, exchangeability is used very often in this MS. There should be a definition, and some literature on its importance.} \\
+  \res{We added its definition in the introduction, the paragraph after (1.1). }   
+
+
+\item \rev{l67, $\psi_{\mathrm{true}}$. Why do we switch from $\intkernel$ to $\psi$ all of a sudden. And is $\intkernel = \psi_{\mathrm{true}}$?} \\
+  \res{We corrected the notation. We use $\phi$ to denote the true interaction function, and use $\varphi$ to denote a generic function. To clarify the notation, we also add a table of notation in Table 1. }   
+
+\item \rev{Ref [18] is a book, please give precise location of the reference.} \\
+  \res{Added. }   
+
+\item \rev{ Definition of $\mathcal{E}$, you defined $|\cdot|$ to be $l_2$ norm, now it is $\|\cdot\|$.}\\
+  \res{All changed to be consistent. }   
+
+
+\item \rev{ (2.3) The Dirac measure of writing is very ``physic'' and may lead to confusion. Can you write it as a density?} \\
+  \res{Since we use $L^2(\rho_t)$, we would like to keep denoting $\rho_t$ the distribution. We use $\rho_t(dr) : =  \E[\delta(|\bX_i^t-\bX_{j}^t|\in dr)]$, which is hopefully not cause as much confusion. }   
+
+\item \rev{13. l70-l75, this part should be formulated into a theorem or proposition. If it is already studied in [11], please write down the theorem.} \\
+  \res{We have rewritten this part as Proposition 2.1. }   
+
+\item \rev{ l74, ``note that $I_{122} =$, what is $U$?} \\
+  \res{Corrected. $U$ should be $\br_{12}^t$. }   
+
+\item \rev{ l74, ``Therefore, Eq. 2.4 is equivalent", I don't see the equivalence. Is it sufficiency instead? I also don't understand the point of counting. Are you saying $I_{123}$ (Not $I(123)$ BTW) is significantly more than $I_{122}$, or $I_{123}$ just need to be nonnegative? If $I_{123}$ just needs to be nonnegative, why is (2.5) a strict inequality?}\\
+  \res{We have rewritten this part to make things clear and corrected the typos. Answering the reviewer questions: (1) it was an equivalence which follows from shifting and multiplication.  (2) Yes, the counting is actually important: there are $N(N-1)N-2$ copies of $I_{123}$ but  $N(N-1)$ copies of $I_{122}$. This factor $N-2$ becomes $ \frac{1}{N-2}$ in (2.4) in the revised version, and allowing us to show that the coercivity is necessary for the identifiability when $N\to\infty$.  (3) No, we want $I_{123}$ to be nonnegative and the strict inequality in the definition of the coercivity condition.  }   
+
+
+\item \rev{The $r_{12}$ here is not defined. $C_{N,T}$ is independent of $T$.} \\
+  \res{Corrected. $C_{N,T}$ is no longer used in the new version. }   
+
+\item \rev{ ``Ensure the convergence of the estimator", please show rigorous proofs.}\\
+  \res{We have removed this phrase and avoided such a discussion to focus on the main results. Also, the convergence is explained in Item 4 in Identifiability above. }   
+
+
+\item \rev{P6, Prop 2.4, the ``operator $Q_t$ associated with...", such notion is not a common term, please define it.} \\
+  \res{Added. }   
+
+\item \rev{ $\Phi(r) =\frac{1}{2}\theta r^2$, please discuss the physic background of these potential.} \\
+  \res{This is a quadratic potential that leading to a linear system. }   
+
+
+\item \rev{Theorem 3.4, what is background of $cov(X_{i}^{0})-cov(X_{i}^{0}, X_{j}^{0}) = \lambda_0 I_d$?} \\
+  \res{We may decompose each component of $\bX^0$ as the sum of a common variable and an independent variable, i.e., $\bX_i^0 = Z_i+ W$, where $\{Z_i\}_{i=1}^N$ are i.i.d. $\mathcal{N}(0,\lambda_0 I_d)$ and $W$ is a common Gaussian random variable, and this implies that the  particles are initially scattered randomly around a random position. We have added this to the revised MS. }   
+
+
+\item \rev{ P11, there are three  ``Proofs" on this page. What are they referring to?} \\
+  \res{It was a bad presentation: ``Proof of (i)'' refers to Item (i) in the line above it, and similarly ``Proof of (i)'' refers to Item (ii) there. They were meant to be parts of the proof for the proposition and we made them in bold font to highlight the different parts. To avoid such a confusion, we have used list to present (i) and (ii), and we replaced the bold font ``Proof of (i)'' by ``To prove (i)".}   
+
+
+\item \rev{ P19, usually you assign Appendix section section number $A$. Using ``Theorem 5.6" in early part looks confusing, as I thought you have proved several new theorems in latter part of MS.}\\
+  \res{We have corrected the problem. In the revised version, ``Theorem 5.6'' now reads ``Theorem A.6''. }   
+
+\end{enumerate}
+
+
+
+
+\newpage
+\textbf{Response to Reviewer 2: }
+
+\rev{The paper under review studies the identifiability or learnability of the interaction kernels of some possible large systems of interacting particles. The authors consider the $N$ particle dynamics given by the following SDE?s
+$$d\bX_t^i=\frac{1}{N}\sum_{j \neq i}\intkernel(|\bX^j_t -\bX^i_t|)\frac{\bX^j_t -\bX^i_t}{|\bX^j_t -\bX^i_t|}+\sigma d\bB^i_t.$$ By taking a radial symmetric function $\Phi$ with $\Phi'(r) = \phi(r)$, the interaction
+term above reads in the gradient form
+
+$$ \frac{1}{N}\sum_{j \neq i}\nabla \Phi(|\bX^j_t -\bX^i_t|) $$
+
+The goal of this paper is to establish some reasonable criteria of the learnability of the so called interaction function $\intkernel: \mathbb{R}^{+} \rightarrow \R$. This is an interesting and challenging topic. The authors express the identifiability problem to the coercivity condition in the previous works by some of the authors here, which is further shown to be equivalent to the condition that some associated integral operators are strictly positive definite. In the end, the authors first establish the identifiablity for the linear case, that is $\intkernel(r) = \theta r$ under the assumption that the initial law is Gaussian. Secondly, for the nonlinear case, the authors proved the coercivity for the particle system with the number of particles $N = 3$ and also the systems should start from some stationary measure. Even though the results seem still not polished enough, considering the difficulty of the inverse type problems, I still suggest recommend accepting the paper for publication provided that the authors properly address the questions specified in the following sections.
+}\\
+\res{We appreciate the reviewer for the support and we thank the reviewer for carefully reading the manuscript. Following the reviewer's (and the other reviewer's) suggestions, we have thoroughly rewritten the paper, focusing on the main results and improved the presentation. }
+
+\bigskip
+\rev{\underline{Suggested Corrections}}
+
+\begin{enumerate}
+        \item  \rev{I would suggest that the authors to add the assumptions on their initial law of $\bX_0$ in the abstract. Some discussions on the possible universality of the initial laws would be welcome as well.}    \\     
+         \res{Thanks for the suggestion. We have added them to the abstract and in the MS. At the current stage, we have only limited results: while general initial laws for linear systems, we only proved the coercivity condition for invariant laws for nonlinear systems with $N=3$. In an on-going work, we expect to remove these constraints by some new techniques.  }
+ 
+
+        \item \rev{In the paragraph after Eq. (1.2), could you specify  ``$\phi(r)$ dominated by $r^{\alpha}$" by formulas? Typo in the same paragraph, change ``arisen'' to ``arising''.}    \\
+       \res{We specify it as $\lim_{r\to\infty}\Phi(r) = +\infty$ in the revised version. We have corrected the word ``arisen" to arising. }
+       
+\item \rev{It would be expanding the introduction a bit. Explain in more detailed way of your main results and strategies}\\
+       \res{Yes. We have rewritten the introduction accordingly. }
+
+
+       \item \rev{In the linear case, what we really need to learn is the parameter $\theta$. Could you discuss a bit some existing works on directly estimating the parameter $\theta$, instead of going through the functional framework as used in the current paper? } \\  
+       \res{In practice, we do not know if the system is linear with such a special structure (and in general the system is not linear), so a parametric inference is not of the main interest in practice. When we do want to estimate the parameter, this is a classical well-studied topic: the MLE will be asymptotically normal. }
+       
+       \item \rev{I have some concern for the assumptions $(H_1)$ and $(H_2)$ after Eq. (2.2) in page 3. I would prefer the authors to discussion what kind of  $\intkernel$ can lead to $(H_1)$ and $(H_2)$? And also, these conditions hold only for the initial data or for any time $t > 0$?} \\
+       \res{Thanks. We have removed these discussions to focus on the interaction functions that we can prove coercivity condition. These assumptions aimed to cover general interaction functions for which solutions exist for the systems. These condition in $(H_1)$ and $(H_2)$ were for the invariant measure $p(\bx)\propto e^{J_\phi(\bx)}$ on $\R^{Nd}$, and they lead to implicit constraints on $\phi$. On the other hand, the learning of $\phi$ is equivalent to the the learning of the pairwise potential $\Phi$ up to a constant (with $\Phi'(r) = \phi$). }
+
+
+\item \rev{In the beginning of Sec.2.1, please add details to the definition $\mathcal{E}_{X}(\intkernel)$? Why is this the right object? Instead of just citing a book/paper, recalling some computations in your previous papers might be better.}\\
+       \res{This is the likelihood ratio of the trajectory. It is the right object because of the basic principle in likelihood based inference: the truth provides the maximal likelihood. We have added some phrases to make this clear and we have also briefly explained the computation of the estimator. }
+
+
+\item \rev{I believe that the $1st$ equation in page 4 is not correct. Please check and fix that! (The 2nd last equation before Eq. (2.4)).} \\
+       \res{There were typos in the proof. We have corrected the typos and revised the presentation with more explanations to make the derivation clear.  }
+
+
+\item \rev{I would suggest to use time as lower subscript. Please make notations consistent. For instance $\bX_0$ and $X_0$ are both used...} \\
+       \res{We understand that is is more conventional to use time as lower subscript, and we have tried this option which lead to other issues when we use superscript for the particle number indexing. Therefore, we would like to keep the current presentation. We have removed the use of $X_0$ to make the notation consistent. }
+
+
+       
+ \end{enumerate}
+
+
+
+ %\bibliographystyle{alpha}
+% \bibliography{learning_dynamics.bib}
+
+
+\end{document}
